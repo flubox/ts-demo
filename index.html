@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale = 1.0, maximum-scale=1.0, user-scalable=no" />
+        <link rel="stylesheet" type="text/css" href="./ts.css">
+        <script src="./dist/index.js"></script>
+        <style>
+          body {
+              background-color: #e5e2df;
+              padding: 0;
+              height: 100%;
+          }
+          .main, .header {
+              background-color: #ffffff;
+          }
+          .main {
+              width: 100%;
+              margin: 0 auto;
+          }
+          .prologue, .slogan {
+            font: 20px arial,sans-serif;
+            color: #595959;
+            margin: 32px 0;
+            text-align: center;
+          }
+          .prologue {
+              font-size: 24px;
+          }
+          .slogan {
+              font-size: 16px;
+              margin-bottom: 48px;
+          }
+        </style>
+    </head>
+    <body>
+        <div class="main">
+            <div class="header">
+                <img src="https://secure.photobox.com/assets/content_graphics/77/114777.jpg?1440773854"/>
+            </div>
+            <div>
+                <div class="prologue">
+                    <span>Choose the perfect theme for your book</span>
+                </div>
+                <div class="slogan">
+                    <span>You'll still be able to edit and personnalize your creation in our creation studio</span>
+                </div>
+            </div>
+            <div id="root"></div>
+            <script>
+                const debug = true;
+                const options = {
+                    debug,
+                    domElement: '#root',
+                    // endpoint: 'http://localhost:8080/fakeapi',
+                    endpoint: () => {
+                        // Using relative filesys
+                        return new Promise(resolve => {
+                            setTimeout(() => {
+                                resolve({json: () => ({then: resolve => resolve(fakeEndpoint)})});
+                            }, 1000);
+                        });
+                    },
+                    gaTrackingId: 'UA-100598143-1',
+                    gaOptions: {
+                        debug: true,
+                        name: 'Theme_Selector_Preview',
+                        alwaysSendReferrer: true
+                    },
+                    resolve: id => console.info(`resolve id: ${id}`),
+                    reject: err => console.warn('err:', err),
+                    sort: (a, b) => Math.round((Math.random() * 2) - 1),
+                    tracking: {
+                        id: 'UA-100598143-1',
+                        events: {
+                            onLoaded: {
+                                event: "view",
+                                category: "User",
+                                action: "View the themes"
+                            }
+                        },
+                        options: {
+                            alwaysSendReferrer: true
+                        }
+                    },
+                    translate: (id) => Object.assign({}, trad[id], {button: 'choose this theme'})
+                };
+
+                if (debug) {
+                    console.info('debug', options);
+                }
+                
+                window.ts(options);
+            </script>
+        </div>
+    </body>
+</html>
