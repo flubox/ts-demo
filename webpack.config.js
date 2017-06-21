@@ -31,7 +31,8 @@ module.exports = {
             loader: 'style-loader!css-loader',
             include: [
                 path.resolve(__dirname, 'src'),
-                path.resolve(__dirname, 'node_modules/flexboxgrid')
+                path.resolve(__dirname, 'node_modules/flexboxgrid'),
+                path.resolve(__dirname, 'node_modules/ts/src')
             ]
         }
     ]
